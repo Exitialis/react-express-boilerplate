@@ -1,0 +1,16 @@
+{
+  "name": "stankinplay",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc && node build/app",
+    "seed": "node build/tasks/syncDb",
+    "build": "tsc"
+  },
+  "author": "Exitialis",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
