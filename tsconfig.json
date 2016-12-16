@@ -4,7 +4,7 @@
     "module": "commonjs",
     "sourceMap": true,
     "outDir": "./build",
-    "rootDir": "app",
+    "rootDir": "src",
     "allowUnreachableCode": true
   },
   "exclude": [
