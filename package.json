@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node app"
+    "start": "node app",
+    "test": "./node_modules/.bin/mocha --require should --reporter spec tests/*.js"
   },
   "author": "Exitialis",
   "license": "ISC",
@@ -18,8 +19,8 @@
     "serve-favicon": "^2.3.2"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
     "mocha": "^3.2.0",
+    "should": "^11.1.2",
     "supertest": "^2.0.1"
   }
 }
