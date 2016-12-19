@@ -4,6 +4,10 @@
  * Module dependencies.
  */
 
+require('babel-core/register');
+['.css', '.less', '.sass', '.ttf', '.woff', '.woff2'].forEach((ext) => require.extensions[ext] = () => {});
+require('babel-polyfill');
+
 let app = require('./app');
 let debug = require('debug')('untitled:server');
 let http = require('http');
@@ -12,7 +16,7 @@ let http = require('http');
  * Get port from environment and store in Express.
  */
 
-let port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 
@@ -29,6 +33,26 @@ let server = http.createServer(app);
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
+
+const assetUrl = process.env.NODE_ENV !== 'production' ? 'http://localhost:8050' : '/';
+
+function renderHTML(componentHTML) {
+    return `
+    <!DOCTYPE html>
+      <html>
+      <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Hello React</title>
+          <link rel="stylesheet" href="${assetUrl}/public/assets/styles.css">
+      </head>
+      <body>
+        <div id="react-view">${componentHTML}</div>
+        <script type="application/javascript" src="${assetUrl}/public/assets/bundle.js"></script>
+      </body>
+    </html>
+  `;
+}
 
 /**
  * Normalize a port into a number, string, or false.
