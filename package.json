@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node app",
+    "start": "node server",
     "test": "./node_modules/.bin/mocha --require should --reporter spec tests/*.js"
   },
   "author": "Exitialis",
