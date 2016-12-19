@@ -2,7 +2,7 @@ let express = require('express');
 let router = express.Router();
 import React    from 'react';
 import ReactDom from 'react-dom/server';
-import App      from '../resources/views/components/App';
+import App      from '../resources/components/App';
 
 
 router.get(function(req, res, next) {
