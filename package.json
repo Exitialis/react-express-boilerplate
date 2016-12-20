@@ -28,6 +28,7 @@
     "path": "^0.12.7",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
+    "sequelize": "^3.28.0",
     "serve-favicon": "^2.3.2"
   },
   "devDependencies": {

@@ -4,6 +4,7 @@ let favicon = require('serve-favicon');
 let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
+let models = require('./app/models/');
 
 const api = require('./routes/api');
 const web = require('./routes/web');
@@ -41,6 +42,16 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
+
+models.sequelize
+    .authenticate()
+    .then(function () {
+        console.log('Connection successful');
+    })
+    .catch(function(error) {
+        console.log("Error creating connection:", error);
+    });
+
 
 module.exports = app;
 
