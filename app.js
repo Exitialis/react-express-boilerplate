@@ -6,8 +6,12 @@ let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
 let models = require('./app/models/');
 
+import React    from 'react';
+import ReactDom from 'react-dom/server';
+import App      from './resources/components/App';
+
 const api = require('./routes/api');
-const web = require('./routes/web');
+const assetUrl = process.env.NODE_ENV !== 'production' ? 'http://localhost:8050' : '/';
 
 let app = express();
 
@@ -22,8 +26,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use((req, res) => {
+    const componentHTML = ReactDom.renderToString(<App />);
+
+    return res.end(renderHTML(componentHTML));
+});
+
 //app.use('/api/', api);
-app.use('/', web);
+//app.use('/', web);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -40,8 +50,28 @@ app.use(function(err, req, res, next) {
 
     // render the error page
     res.status(err.status || 500);
-    res.render('error');
+    res.end(err.status + ' error \n' + err.toString());
 });
+
+
+function renderHTML(componentHTML) {
+    return `
+    <!DOCTYPE html>
+      <html>
+      <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Hello React</title>
+          <link rel="stylesheet" href="${assetUrl}/public/assets/styles.css">
+      </head>
+      <body>
+        <div id="react-view">${componentHTML}</div>
+        <script type="application/javascript" src="${assetUrl}/public/assets/bundle.js"></script>
+      </body>
+    </html>
+  `;
+}
+
 
 models.sequelize
     .authenticate()
