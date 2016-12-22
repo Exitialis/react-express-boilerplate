@@ -1,32 +1,56 @@
 import express from 'express';
 import path from 'path';
-import favicon from 'serve-favicon';
 import logger from 'morgan';
 import cookieParser from'cookie-parser';
 import bodyParser from 'body-parser';
 import models from './app/models/';
 import React    from 'react';
 import ReactDom from 'react-dom/server';
-import App      from './resources/components/App/App';
+import { match, RouterContext } from 'react-router';
+import routes from './routes/web';
+import App from './resources/components/App';
+import { loadENV } from './app/helpers';
+
+//Загружаем .env файл в качестве настроек
+loadENV();
 
 import api from './routes/api';
+
 const assetUrl = process.env.NODE_ENV !== 'production' ? 'http://localhost:8050' : '/';
 
 let app = express();
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+
 //Server side rendering React
 app.use((req, res) => {
-    const componentHTML = ReactDom.renderToString(<App />);
+    match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
 
-    return res.end(renderHTML(componentHTML));
+        // Если необходимо сделать redirect
+        if (redirectLocation) {
+            return res.redirect(301, redirectLocation.pathname + redirectLocation.search);
+        }
+
+        // Произошла ошибка любого рода
+        if (error) {
+            return res.status(500).send(error.message);
+        }
+
+        // Мы не определили путь, который бы подошел для URL
+        if (!renderProps) {
+            return res.status(404).send('Not found');
+        }
+
+        const componentHTML = ReactDom.renderToString(<RouterContext {...renderProps} />);
+
+        return res.end(renderHTML(componentHTML));
+    });
 });
 
 app.use('/api/', api);
@@ -46,8 +70,10 @@ app.use(function(err, req, res, next) {
 
     // render the error page
     res.status(err.status || 500);
-    res.end(err.status + ' error \n' + err.toString());
+    res.end(err.status || 500 + ' error \n' + err.toString());
 });
+
+
 
 
 function renderHTML(componentHTML) {

@@ -3,7 +3,6 @@ import Grid  from 'react-bootstrap/lib/Grid';
 import Nav from 'react-bootstrap/lib/Nav';
 import Navbar from 'react-bootstrap/lib/Navbar';
 import NavItem  from 'react-bootstrap/lib/NavItem';
-import HelloWorldPage from '../HelloWorldPage';
 import './bootstrap.less';
 
 class App extends Component {
@@ -25,7 +24,7 @@ class App extends Component {
                     </Navbar.Collapse>
                 </Navbar>
                 <Grid>
-                    <HelloWorldPage />
+
                 </Grid>
             </div>
         );
