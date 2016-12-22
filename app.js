@@ -1,22 +1,18 @@
-let express = require('express');
-let path = require('path');
-let favicon = require('serve-favicon');
-let logger = require('morgan');
-let cookieParser = require('cookie-parser');
-let bodyParser = require('body-parser');
-let models = require('./app/models/');
-
+import express from 'express';
+import path from 'path';
+import favicon from 'serve-favicon';
+import logger from 'morgan';
+import cookieParser from'cookie-parser';
+import bodyParser from 'body-parser';
+import models from './app/models/';
 import React    from 'react';
 import ReactDom from 'react-dom/server';
-import App      from './resources/components/App';
+import App      from './resources/components/App/App';
 
-const api = require('./routes/api');
+import api from './routes/api';
 const assetUrl = process.env.NODE_ENV !== 'production' ? 'http://localhost:8050' : '/';
 
 let app = express();
-
-// views setup
-//app.set('views', path.join(__dirname, 'resources/views'));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -26,14 +22,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Server side rendering React
 app.use((req, res) => {
     const componentHTML = ReactDom.renderToString(<App />);
 
     return res.end(renderHTML(componentHTML));
 });
 
-//app.use('/api/', api);
-//app.use('/', web);
+app.use('/api/', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
