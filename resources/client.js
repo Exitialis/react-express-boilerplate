@@ -1,5 +1,18 @@
 import React      from 'react';
 import ReactDOM   from 'react-dom';
-import App        from './components/App/App';
+import { browserHistory, Router } from 'react-router';
+import { Provider } from 'react-redux';
+import configureStore from './redux/store';
+import web from '../routes/web';
 
-ReactDOM.render(<App />, document.getElementById('react-view'));
+const store = configureStore();
+
+const component = (
+    <Provider store={store}>
+        <Router history={browserHistory}>
+            {web}
+        </Router>
+    </Provider>
+);
+
+ReactDOM.render(component, document.getElementById('react-view'));

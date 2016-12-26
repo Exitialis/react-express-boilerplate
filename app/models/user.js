@@ -1,10 +1,10 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-    let User = sequelize.define('User', {
+    return sequelize.define('User', {
         name: DataTypes.STRING,
         bio: DataTypes.TEXT,
-        email: DataTypes.INTEGER,
+        email: DataTypes.EMAIL,
     }, {
         underscored: true,
         classMethods: {
@@ -13,6 +13,4 @@ module.exports = function(sequelize, DataTypes) {
             }
         }
     });
-
-    return User;
 };
