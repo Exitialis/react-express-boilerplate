@@ -6,7 +6,7 @@ import bodyParser from 'body-parser';
 import React    from 'react';
 import ReactDom from 'react-dom/server';
 import { Provider } from 'react-redux';
-import configureStore from './resources/redux/store';
+import configureStore from './resources/redux/store.prod';
 import { match, RouterContext } from 'react-router';
 import routes from './routes/web';
 import { loadENV, renderHTML } from './app/helpers';
