@@ -1,15 +1,15 @@
 global.Promise         = require('bluebird');
 
-var webpack            = require('webpack');
-var path               = require('path');
-var ExtractTextPlugin  = require('extract-text-webpack-plugin');
-var CleanWebpackPlugin = require('clean-webpack-plugin');
+const webpack            = require('webpack');
+const path               = require('path');
+const ExtractTextPlugin  = require('extract-text-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
-var publicPath         = 'http://localhost:8050/public/assets';
-var cssName            = process.env.NODE_ENV === 'production' ? 'styles-[hash].css' : 'styles.css';
-var jsName             = process.env.NODE_ENV === 'production' ? 'bundle-[hash].js' : 'bundle.js';
+const publicPath         = 'http://localhost:8050/public/assets';
+const cssName            = process.env.NODE_ENV === 'production' ? 'styles-[hash].css' : 'styles.css';
+const jsName             = process.env.NODE_ENV === 'production' ? 'bundle-[hash].js' : 'bundle.js';
 
-var plugins = [
+const plugins = [
     new webpack.DefinePlugin({
         'process.env': {
             BROWSER:  JSON.stringify(true),

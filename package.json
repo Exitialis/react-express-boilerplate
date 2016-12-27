@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server",
-    "build": "NODE_ENV='production' webpack -p",
+    "build": "webpack -p",
     "webpack-devserver": "webpack-dev-server --debug --hot --devtool eval-source-map --output-pathinfo --watch --colors --inline --content-base public --port 8050 --host 0.0.0.0",
     "local": "NODE_PATH=./src nodemon server.js",
     "test": "./node_modules/.bin/mocha --require should --reporter spec tests/*.js"

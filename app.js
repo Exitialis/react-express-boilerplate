@@ -11,6 +11,7 @@ import { match, RouterContext } from 'react-router';
 import routes from './routes/web';
 import { loadENV, renderHTML } from './app/helpers';
 import api from './routes/api';
+import { getHeaders, initialize } from 'redux-oauth';
 
 //Загружаем .env файл в качестве настроек
 loadENV();
@@ -26,6 +27,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 //Server side rendering React
 app.use((req, res) => {
     const store = configureStore();
+
+    const state = store.getState();
 
     match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
 
@@ -50,7 +53,7 @@ app.use((req, res) => {
             </Provider>
         );
 
-        return res.end(renderHTML(componentHTML));
+        return res.end(renderHTML(componentHTML, state));
     });
 });
 
