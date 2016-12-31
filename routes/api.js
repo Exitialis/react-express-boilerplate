@@ -1,9 +1,9 @@
-let express = require('express');
-let router = express.Router();
+import users from '../app/controllers/api/users';
+
+import express from 'express';
+const router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-    res.json({message: 'Hello, Express!'});
-});
+router.use('/users', users);
 
 module.exports = router;

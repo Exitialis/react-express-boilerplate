@@ -24,6 +24,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+//Сначала регистрируем все api роуты.
+app.use('/api/', api);
+
 //Server side rendering React
 app.use((req, res) => {
     const store = configureStore();
@@ -56,8 +59,6 @@ app.use((req, res) => {
         return res.end(renderHTML(componentHTML, state));
     });
 });
-
-app.use('/api/', api);
 
 module.exports = app;
 
