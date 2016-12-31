@@ -11,8 +11,13 @@
     "test": "ava tests/*"
   },
   "jest": {
-    "moduleFileExtensions": ["js", "jsx"],
-    "moduleDirectories": ["node_modules"],
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleDirectories": [
+      "node_modules"
+    ],
     "testRegex": "(/tests/.*|(\\.|/)(test|spec))\\.jsx?$",
     "moduleNameMapper": {
       ".*\\.(less|css)$": "<rootDir>/__mocks__/styles.js"
@@ -50,8 +55,6 @@
     "sqlite3": "^3.1.8"
   },
   "devDependencies": {
-    "ava": "^0.17.0",
-    "ava-spec": "^1.0.1",
     "babel-loader": "^6.2.10",
     "clean-webpack-plugin": "^0.1.14",
     "css-loader": "^0.26.1",

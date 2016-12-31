@@ -2,7 +2,7 @@ import request from 'supertest';
 import app from '../../app';
 
 describe('/api/users endpoint', () => {
-    it('GET must return list of users', done => {
+    it('GET should return list of users', done => {
         request(app)
             .get('/api/users')
             .expect('Content-Type', /json/)
@@ -14,7 +14,7 @@ describe('/api/users endpoint', () => {
             })
     });
 
-    it('POST must create a new user', done => {
+    it('POST should create a new user', done => {
         request(app)
             .post('/api/users')
             .set('Accept', 'application/json')
