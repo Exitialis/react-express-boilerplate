@@ -10,6 +10,14 @@
     "local": "NODE_PATH=./src nodemon server.js",
     "test": "ava tests/*"
   },
+  "jest": {
+    "moduleFileExtensions": ["js", "jsx"],
+    "moduleDirectories": ["node_modules"],
+    "testRegex": "(/tests/.*|(\\.|/)(test|spec))\\.jsx?$",
+    "moduleNameMapper": {
+      ".*\\.(less|css)$": "<rootDir>/__mocks__/styles.js"
+    }
+  },
   "author": "Exitialis",
   "license": "ISC",
   "dependencies": {

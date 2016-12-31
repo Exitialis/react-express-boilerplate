@@ -47,7 +47,7 @@ function loadENV(options) {
         let parsedObj = parse(fs.readFileSync(path, { encoding: encoding }));
 
         Object.keys(parsedObj).forEach(function (key) {
-            process.env[key] = process.env[key] || parsedObj[key]
+            process.env[key] = parsedObj[key]
         });
 
         return parsedObj
